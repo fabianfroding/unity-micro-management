@@ -16,8 +16,8 @@ public class Stats : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        heroCombatScript = GameObject.FindGameObjectWithTag("Player").GetComponent<HeroCombat>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        heroCombatScript = GameObject.FindGameObjectWithTag(EditorConstants.TAG_PLAYER).GetComponent<HeroCombat>();
+        player = GameObject.FindGameObjectWithTag(EditorConstants.TAG_PLAYER);
     }
 
     // Update is called once per frame

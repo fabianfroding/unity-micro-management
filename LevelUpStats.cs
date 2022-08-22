@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -5,7 +6,7 @@ public class LevelUpStats : MonoBehaviour
 {
     public int level = 1;
     public float experience { get; private set; }
-    public Text lvlText;
+    public TextMeshProUGUI lvlText;
     public Image expBarImage;
 
     public static int ExpNeedToLvlUp(int currentLevel)

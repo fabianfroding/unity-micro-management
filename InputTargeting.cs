@@ -8,7 +8,7 @@ public class InputTargeting : MonoBehaviour
 
     void Start()
     {
-        selectedHero = GameObject.FindGameObjectWithTag("Player");
+        selectedHero = GameObject.FindGameObjectWithTag(EditorConstants.TAG_PLAYER);
     }
 
     void Update()

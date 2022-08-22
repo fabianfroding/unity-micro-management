@@ -136,10 +136,13 @@ public class HeroCombat : MonoBehaviour
 
     public void RangedAttack()
     {
+        Debug.Log("1!");
         if (targetedEnemy != null)
         {
+            Debug.Log("2!");
             if (targetedEnemy.GetComponent<Targetable>().enemyType == Targetable.EnemyType.Minion)
             {
+                Debug.Log("3!");
                 SpawnRangedProj("Minion", targetedEnemy);
             }
         }
@@ -151,14 +154,15 @@ public class HeroCombat : MonoBehaviour
     {
         float dmg = statsScript.attackDmg;
 
+        Debug.Log("PROJ!");
         Instantiate(projPrefab, projSpawnPoint.transform.position, Quaternion.identity);
 
         if (typeOfEnemy == "Minion")
         {
-            /*projPrefab.GetComponent<RangedProjectile>().targetType = typeOfEnemy;
+            projPrefab.GetComponent<RangedProjectile>().targetType = typeOfEnemy;
 
             projPrefab.GetComponent<RangedProjectile>().target = targetedEnemyObj;
-            projPrefab.GetComponent<RangedProjectile>().targetSet = true;*/
+            projPrefab.GetComponent<RangedProjectile>().targetSet = true;
         }
     }
 }
