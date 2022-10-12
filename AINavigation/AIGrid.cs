@@ -12,7 +12,7 @@ public class AIGrid<TAIGridObject>
     private TAIGridObject[,] gridArray;
     private TextMesh[,] debugArray;
 
-    public AIGrid(int width, int height, float cellSize, Vector3 originPosition, Func<AIGrid<TAIGridObject>, int, int, TAIGridObject> createGridObject)
+    public AIGrid(int width, int height, float cellSize, Vector3 originPosition, Func<AIGrid<TAIGridObject>, int, int, Vector3, TAIGridObject> createGridObject)
     {
         this.width = width;
         this.height = height;
@@ -26,7 +26,7 @@ public class AIGrid<TAIGridObject>
         {
             for (int z = 0; z < gridArray.GetLength(1); z++)
             {
-                gridArray[x, z] = createGridObject(this, x, z);
+                gridArray[x, z] = createGridObject(this, x, z, GetWorldPosition(x, z) + new Vector3(cellSize, 0, cellSize) * 0.5f);
             }
         }
 
@@ -49,7 +49,7 @@ public class AIGrid<TAIGridObject>
     public int GetWidth() => width;
     public int GetHeight() => height;
 
-    public void GetXY(Vector3 worldPosition, out int x, out int z)
+    public void GetXZ(Vector3 worldPosition, out int x, out int z)
     {
         x = Mathf.FloorToInt((worldPosition - originPosition).x / cellSize);
         z = Mathf.FloorToInt((worldPosition - originPosition).z / cellSize);
@@ -72,7 +72,7 @@ public class AIGrid<TAIGridObject>
 
     public void SetAIGridObject(Vector3 worldPosition, TAIGridObject value)
     {
-        GetXY(worldPosition, out int x, out int z);
+        GetXZ(worldPosition, out int x, out int z);
         SetAIGridObject(x, z, value);
     }
 
@@ -87,7 +87,7 @@ public class AIGrid<TAIGridObject>
 
     public TAIGridObject GetAIGridObject(Vector3 worldPosition)
     {
-        GetXY(worldPosition, out int x, out int z);
+        GetXZ(worldPosition, out int x, out int z);
         return GetAIGridObject(x, z);
     }
 

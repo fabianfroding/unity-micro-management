@@ -10,13 +10,13 @@ public class AIPathfinding
     private List<AIPathNode> openList;
     private List<AIPathNode> closedList;
 
-    public float CellSize { get; private set; }
+    public static float CellSize { get; private set; }
 
     public AIPathfinding(int width, int height, float cellSize)
     {
         CellSize = cellSize;
         grid = new AIGrid<AIPathNode>(width, height, CellSize, Vector3.zero, 
-            (AIGrid<AIPathNode> g, int x, int z) => new AIPathNode(x, z));
+            (AIGrid<AIPathNode> g, int x, int z, Vector3 loc) => new AIPathNode(x, z, loc));
     }
 
     public AIGrid<AIPathNode> GetAIGrid() => grid;
@@ -52,7 +52,7 @@ public class AIPathfinding
                 return CalculatePath(goalNode);
             }
             openList.Remove(currentNode); // Current node has already been searched.
-            closedList.Add(currentNode); // Add the current node to the closed list.
+            closedList.Add(currentNode);
 
             // Iterate through the neightbours of the current node.
             foreach (AIPathNode neighbourNode in GetNeighbourList(currentNode))
