@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class AIGridSetup : MonoBehaviour
 {
+    [SerializeField] private AIMovementHandler AIMovementHandler;
+
     private AIPathfinding aiPathfinding;
 
     private void Start()
@@ -25,6 +27,8 @@ public class AIGridSetup : MonoBehaviour
                         new Vector3(path[i + 1].x, 0, path[i + 1].z) * AIPathfinding.CellSize + new Vector3(1, 0.2f, 1) * (AIPathfinding.CellSize * 0.5f), Color.blue, 5f);
                 }
             }
+
+            AIMovementHandler.SetTargetPosition(mouseWorldPosition);
         }
 
     }

@@ -10,16 +10,38 @@ public class AIPathfinding
     private List<AIPathNode> openList;
     private List<AIPathNode> closedList;
 
+    public static AIPathfinding Instance { get; private set; }
+
     public static float CellSize { get; private set; }
 
     public AIPathfinding(int width, int height, float cellSize)
     {
+        Instance = this;
         CellSize = cellSize;
         grid = new AIGrid<AIPathNode>(width, height, CellSize, Vector3.zero, 
             (AIGrid<AIPathNode> g, int x, int z, Vector3 loc) => new AIPathNode(x, z, loc));
     }
 
     public AIGrid<AIPathNode> GetAIGrid() => grid;
+
+    public List<Vector3> FindPath(Vector3 startWorldPos, Vector3 goalWorldPos)
+    {
+        grid.GetXZ(startWorldPos, out int startX, out int startZ);
+        grid.GetXZ(goalWorldPos, out int goalX, out int goalZ);
+
+        List<AIPathNode> path = FindPath(startX, startZ, goalX, goalZ);
+        if (path == null) { return null; }
+        else
+        {
+            List<Vector3> vectorPath = new();
+            foreach (AIPathNode node in path)
+            {
+                // Gets the center of each grid and adds it to the list of locations.
+                vectorPath.Add(new Vector3(node.x, 0, node.z) * CellSize + .5f * CellSize * new Vector3(1, 0, 1));
+            }
+            return vectorPath;
+        }
+    }
 
     public List<AIPathNode> FindPath(int startX, int startZ, int endX, int endZ)
     {
